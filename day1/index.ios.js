@@ -12,30 +12,36 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  Text,
   View,
-  Button,
-  Navigator
+  Navigator,
+  Text
 } from 'react-native';
+import SelectView from './scene/SelectView'
 
-export default class day1 extends Component {
-  _sceneChange () {
-    this.props.navigator.push({
-      name: 'scene'
-    })
+export default class Day1 extends Component {
+
+  _configureScene = route => {
+    if (route.sceneConfig) return route.sceneConfig
+
+    return {
+      ...Navigator.SceneConfigs.PushFromRight,
+      gestures: {}    // 禁用左滑返回手势
+    }
+  }
+
+  _renderScene = (route, navigator) => {
+    let Component = route.component
+    return <Component navigator={navigator}{...route.passProps}/>
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Button
-          color="#841584"
-          accessibilityLabel="Learn more about this purple button"
-          onPress={this._sceneChange} title="竖排列表"></Button>
-        <Button style={styles.button} onPress={this._sceneChange} title="横排列表"></Button>
-        <Button style={styles.button} onPress={this._sceneChange} title="九宫格"></Button>
-        <Button style={styles.button} onPress={this._sceneChange} title="tab"></Button>
-        <Button style={styles.button} onPress={this._sceneChange} title="多面板"></Button>
+        <Navigator
+            initialRoute={{name: 'SelectView', component: SelectView}}
+            renderScene={this._renderScene}
+            configureScene={this._configureScene}
+        />
       </View>
     );
   }
@@ -44,9 +50,7 @@ export default class day1 extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
   }
 });
 
-AppRegistry.registerComponent('day1', () => day1);
+AppRegistry.registerComponent('day1', () => Day1);
