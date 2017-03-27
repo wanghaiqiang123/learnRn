@@ -5,10 +5,14 @@ import View1 from './View1'
 export default class SelectView extends React.Component {
   constructor (props) {
     super(props)
+    this._sceneChange.bind(this)
   }
-
-  _sceneChange () {
+  componentDidMount () {
+    console.log(this.props)
+  }
+  _sceneChange = () => {
     this.props.navigator.push({
+      name: 'View1',
       component: View1
     })
   }

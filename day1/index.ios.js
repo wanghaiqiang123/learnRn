@@ -14,7 +14,8 @@ import {
   StyleSheet,
   View,
   Navigator,
-  Text
+  Text,
+  StatusBar
 } from 'react-native';
 import SelectView from './scene/SelectView'
 
@@ -37,6 +38,7 @@ export default class Day1 extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <StatusBar barStyle="light-content"></StatusBar>
         <Navigator
             initialRoute={{name: 'SelectView', component: SelectView}}
             renderScene={this._renderScene}
